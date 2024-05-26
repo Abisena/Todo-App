@@ -1,0 +1,27 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.exe~
+*.dll~
+*.so~
+*.dylib~
+*.out
+*.env
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.coverprofile
+
+# Output of the go command
+*.log
+
+# Default to ignoring vendor dir, can be overridden with ! in specific repo .gitignore
+vendor/
+
+# Dependency directories (remove the leading slash if you want to ignore deps from vendor/)
+vendor/
+Godeps/
+
+# Go workspace file
+go.work
