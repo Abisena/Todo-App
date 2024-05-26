@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"todo-app/auth"
 	"todo-app/database"
 	"todo-app/utils"
 
@@ -15,6 +16,7 @@ func main() {
 		fmt.Println(err)
 	}
 	defer db.Close()
+	auth.Register()
 
 	r := mux.NewRouter()
 
