@@ -1,4 +1,4 @@
-# tODO App (Backend Developer)
+# Todo App (Backend Developer)
 
 ## Panduan
 
