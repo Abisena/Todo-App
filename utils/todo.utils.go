@@ -43,6 +43,7 @@ func UtilsTodoCrud(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(user)
 	case http.MethodGet:
 		todos, err := getAllDataTodo(db)
 		if err != nil {
@@ -72,6 +73,7 @@ func UtilsTodoCrud(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(user)
 	case http.MethodDelete:
 		id, err := strconv.Atoi(mux.Vars(r)["id"])
 		if err != nil {
@@ -86,6 +88,7 @@ func UtilsTodoCrud(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"message": "Data deleted successfully"})
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
