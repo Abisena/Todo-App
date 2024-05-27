@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"todo-app/auth/service"
 	"todo-app/database"
+
+	"github.com/gorilla/context"
 )
 
 
@@ -51,6 +53,8 @@ func Login(users *service.User, w http.ResponseWriter, r *http.Request) {
     	http.Error(w, err.Error(), http.StatusInternalServerError)
     	return
 	}
+
+	context.Set(r, "isLoggedIn", true)
 
     w.WriteHeader(http.StatusCreated)
     json.NewEncoder(w).Encode(loggedUser)

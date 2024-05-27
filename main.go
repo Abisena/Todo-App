@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"todo-app/auth"
 	"todo-app/database"
+	"todo-app/middleware"
 	"todo-app/utils"
 
 	"github.com/gorilla/mux"
@@ -25,6 +26,8 @@ func main() {
 	}
 
 	r := mux.NewRouter()
+
+	r.Use(middleware.LoginMiddleware)
 
 	r.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		auth.Register(nil, w, r)
