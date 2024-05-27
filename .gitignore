@@ -9,6 +9,7 @@
 *.dylib~
 *.out
 *.env
+*.txt
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.coverprofile
 

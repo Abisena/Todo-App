@@ -55,7 +55,7 @@ func ServiceUserLogin(db *sql.DB, username, password string, w http.ResponseWrit
 
 
     if !user.Token.Valid || user.Token.String == "" {
-        tokenStr, err := jwt.GenerateToken(user.Username, user.Email, user.Id, secretKey)
+        tokenStr, err := jwt.GenerateToken(user.Id, secretKey)
         if err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
             return nil, err

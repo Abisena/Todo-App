@@ -5,12 +5,9 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 )
-
-func GenerateToken(username string, email string, id uint, secretKey string) (string, error) {
+func GenerateToken(userId uint, secretKey string) (string, error) {
     claims := jwt.MapClaims{
-        "username": username,
-        "email": email,
-        "id": id,
+        "userId": userId,
         "exp": time.Now().Add(time.Hour * 24).Unix(),
     }
     token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
