@@ -9,7 +9,7 @@ import (
 )
 
 
-var register string = "Ayoo Register\n"
+var register string = "Ayoo Login\n"
 func Register(users *service.User, w http.ResponseWriter, r *http.Request) {
 	var user service.User
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -46,10 +46,11 @@ func Login(users *service.User, w http.ResponseWriter, r *http.Request) {
     }
     defer newDB.Close()
 
-    loggedUser, err := service.ServiceUserLogin(newDB, user.Username, user.Password, w, r)
-    if err != nil {
-        return
-    }
+	loggedUser, err := service.ServiceUserLogin(newDB, user.Username, user.Password, w, r)
+	if err != nil {
+    	http.Error(w, err.Error(), http.StatusInternalServerError)
+    	return
+	}
 
     w.WriteHeader(http.StatusCreated)
     json.NewEncoder(w).Encode(loggedUser)
