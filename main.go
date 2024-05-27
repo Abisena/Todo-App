@@ -8,6 +8,7 @@ import (
 	"todo-app/database"
 	"todo-app/utils"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
@@ -24,6 +25,12 @@ func main() {
     	log.Fatal("Error loading .env file")
 	}
 
+	cors := handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+	)
+
 	r := mux.NewRouter()
 
 	// r.Use(middleware.LoginMiddleware)
@@ -37,5 +44,5 @@ func main() {
 	r.HandleFunc("/todos", utils.UtilsTodoCrud).Methods(http.MethodPost, http.MethodGet)
 	r.HandleFunc("/todos/{id}", utils.UtilsTodoCrud).Methods(http.MethodPut, http.MethodDelete)
 
-	fmt.Println(http.ListenAndServe(":8000", r))
+	fmt.Println(http.ListenAndServe(":8000", cors(r)))
 }

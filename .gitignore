@@ -9,7 +9,6 @@
 *.dylib~
 *.out
 *.env
-
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.coverprofile
 
@@ -25,3 +24,5 @@ Godeps/
 
 # Go workspace file
 go.work
+go.mod
+go.sum
