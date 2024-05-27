@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"todo-app/auth"
 	"todo-app/database"
 	"todo-app/utils"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -16,10 +18,20 @@ func main() {
 		fmt.Println(err)
 	}
 	defer db.Close()
-	auth.Register()
+
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+    	log.Fatal("Error loading .env file")
+	}
 
 	r := mux.NewRouter()
 
+	r.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+		auth.Register(nil, w, r)
+	}).Methods(http.MethodPost)
+	r.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		auth.Login(nil, w, r)
+	}).Methods(http.MethodPost)
 	r.HandleFunc("/todos", utils.UtilsTodoCrud).Methods(http.MethodPost, http.MethodGet)
 	r.HandleFunc("/todos/{id}", utils.UtilsTodoCrud).Methods(http.MethodPut, http.MethodDelete)
 
